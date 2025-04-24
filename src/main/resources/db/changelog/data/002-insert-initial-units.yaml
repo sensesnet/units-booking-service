@@ -1,0 +1,324 @@
+databaseChangeLog:
+  - changeSet:
+      id: 002
+      author: kdegtyarev
+      changes:
+        - insert:
+            tableName: units
+            columns:
+              - column:
+                  name: number_of_rooms
+                  valueNumeric: 2
+              - column:
+                  name: accommodation_type
+                  value: "FLAT"
+              - column:
+                  name: floor
+                  valueNumeric: 1
+              - column:
+                  name: description
+                  value: "Modern flat near park"
+              - column:
+                  name: cost
+                  valueNumeric: 120.00
+
+        - insert:
+            tableName: event_log
+            columns:
+              - column:
+                  name: unit_id
+                  valueNumeric: 1
+              - column:
+                  name: event_type
+                  value: "CREATED"
+              - column:
+                  name: created_at
+                  valueDate: "2025-04-17T12:00:00"
+
+        - insert:
+            tableName: units
+            columns:
+              - column:
+                  name: number_of_rooms
+                  valueNumeric: 1
+              - column:
+                  name: accommodation_type
+                  value: "HOME"
+              - column:
+                  name: floor
+                  valueNumeric: 0
+              - column:
+                  name: description
+                  value: "Cozy home in suburb"
+              - column:
+                  name: cost
+                  valueNumeric: 90.00
+
+        - insert:
+            tableName: event_log
+            columns:
+              - column:
+                  name: unit_id
+                  valueNumeric: 2
+              - column:
+                  name: event_type
+                  value: "CREATED"
+              - column:
+                  name: created_at
+                  valueDate: "2025-04-17T12:01:00"
+
+        - insert:
+            tableName: units
+            columns:
+              - column:
+                  name: number_of_rooms
+                  valueNumeric: 3
+              - column:
+                  name: accommodation_type
+                  value: "APARTMENTS"
+              - column:
+                  name: floor
+                  valueNumeric: 5
+              - column:
+                  name: description
+                  value: "Penthouse with sea view"
+              - column:
+                  name: cost
+                  valueNumeric: 250.00
+
+        - insert:
+            tableName: event_log
+            columns:
+              - column:
+                  name: unit_id
+                  valueNumeric: 3
+              - column:
+                  name: event_type
+                  value: "CREATED"
+              - column:
+                  name: created_at
+                  valueDate: "2025-04-17T12:02:00"
+
+        - insert:
+            tableName: units
+            columns:
+              - column:
+                  name: number_of_rooms
+                  valueNumeric: 2
+              - column:
+                  name: accommodation_type
+                  value: "HOME"
+              - column:
+                  name: floor
+                  valueNumeric: 1
+              - column:
+                  name: description
+                  value: "Cottage in the woods"
+              - column:
+                  name: cost
+                  valueNumeric: 140.00
+
+        - insert:
+            tableName: event_log
+            columns:
+              - column:
+                  name: unit_id
+                  valueNumeric: 4
+              - column:
+                  name: event_type
+                  value: "CREATED"
+              - column:
+                  name: created_at
+                  valueDate: "2025-04-17T12:03:00"
+
+        - insert:
+            tableName: units
+            columns:
+              - column:
+                  name: number_of_rooms
+                  valueNumeric: 4
+              - column:
+                  name: accommodation_type
+                  value: "APARTMENTS"
+              - column:
+                  name: floor
+                  valueNumeric: 10
+              - column:
+                  name: description
+                  value: "Spacious apartment in downtown"
+              - column:
+                  name: cost
+                  valueNumeric: 200.00
+
+        - insert:
+            tableName: event_log
+            columns:
+              - column:
+                  name: unit_id
+                  valueNumeric: 5
+              - column:
+                  name: event_type
+                  value: "CREATED"
+              - column:
+                  name: created_at
+                  valueDate: "2025-04-17T12:04:00"
+
+        - insert:
+            tableName: units
+            columns:
+              - column:
+                  name: number_of_rooms
+                  valueNumeric: 1
+              - column:
+                  name: accommodation_type
+                  value: "FLAT"
+              - column:
+                  name: floor
+                  valueNumeric: 2
+              - column:
+                  name: description
+                  value: "Compact flat for students"
+              - column:
+                  name: cost
+                  valueNumeric: 80.00
+
+        - insert:
+            tableName: event_log
+            columns:
+              - column:
+                  name: unit_id
+                  valueNumeric: 6
+              - column:
+                  name: event_type
+                  value: "CREATED"
+              - column:
+                  name: created_at
+                  valueDate: "2025-04-17T12:05:00"
+
+        - insert:
+            tableName: units
+            columns:
+              - column:
+                  name: number_of_rooms
+                  valueNumeric: 3
+              - column:
+                  name: accommodation_type
+                  value: "HOME"
+              - column:
+                  name: floor
+                  valueNumeric: 0
+              - column:
+                  name: description
+                  value: "Family home with garden"
+              - column:
+                  name: cost
+                  valueNumeric: 160.00
+
+        - insert:
+            tableName: event_log
+            columns:
+              - column:
+                  name: unit_id
+                  valueNumeric: 7
+              - column:
+                  name: event_type
+                  value: "CREATED"
+              - column:
+                  name: created_at
+                  valueDate: "2025-04-17T12:06:00"
+
+        - insert:
+            tableName: units
+            columns:
+              - column:
+                  name: number_of_rooms
+                  valueNumeric: 2
+              - column:
+                  name: accommodation_type
+                  value: "FLAT"
+              - column:
+                  name: floor
+                  valueNumeric: 3
+              - column:
+                  name: description
+                  value: "Stylish flat in city center"
+              - column:
+                  name: cost
+                  valueNumeric: 130.00
+
+        - insert:
+            tableName: event_log
+            columns:
+              - column:
+                  name: unit_id
+                  valueNumeric: 8
+              - column:
+                  name: event_type
+                  value: "CREATED"
+              - column:
+                  name: created_at
+                  valueDate: "2025-04-17T12:07:00"
+
+        - insert:
+            tableName: units
+            columns:
+              - column:
+                  name: number_of_rooms
+                  valueNumeric: 2
+              - column:
+                  name: accommodation_type
+                  value: "APARTMENTS"
+              - column:
+                  name: floor
+                  valueNumeric: 6
+              - column:
+                  name: description
+                  value: "Urban apartment with view"
+              - column:
+                  name: cost
+                  valueNumeric: 170.00
+
+        - insert:
+            tableName: event_log
+            columns:
+              - column:
+                  name: unit_id
+                  valueNumeric: 9
+              - column:
+                  name: event_type
+                  value: "CREATED"
+              - column:
+                  name: created_at
+                  valueDate: "2025-04-17T12:08:00"
+
+        - insert:
+            tableName: units
+            columns:
+              - column:
+                  name: number_of_rooms
+                  valueNumeric: 3
+              - column:
+                  name: accommodation_type
+                  value: "HOME"
+              - column:
+                  name: floor
+                  valueNumeric: 1
+              - column:
+                  name: description
+                  value: "Charming home near river"
+              - column:
+                  name: cost
+                  valueNumeric: 145.00
+
+        - insert:
+            tableName: event_log
+            columns:
+              - column:
+                  name: unit_id
+                  valueNumeric: 10
+              - column:
+                  name: event_type
+                  value: "CREATED"
+              - column:
+                  name: created_at
+                  valueDate: "2025-04-17T12:09:00"

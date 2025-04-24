@@ -1,0 +1,185 @@
+databaseChangeLog:
+  - changeSet:
+      id: insert-initial-users
+      author: kdegtyarev
+      changes:
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: username
+                  value: user1
+              - column:
+                  name: email
+                  value: user1@example.com
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: username
+                  value: user2
+              - column:
+                  name: email
+                  value: user2@example.com
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: username
+                  value: user3
+              - column:
+                  name: email
+                  value: user3@example.com
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: username
+                  value: user4
+              - column:
+                  name: email
+                  value: user4@example.com
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: username
+                  value: user5
+              - column:
+                  name: email
+                  value: user5@example.com
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: username
+                  value: user6
+              - column:
+                  name: email
+                  value: user6@example.com
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: username
+                  value: user7
+              - column:
+                  name: email
+                  value: user7@example.com
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: username
+                  value: user8
+              - column:
+                  name: email
+                  value: user8@example.com
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: username
+                  value: user9
+              - column:
+                  name: email
+                  value: user9@example.com
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: username
+                  value: user10
+              - column:
+                  name: email
+                  value: user10@example.com
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: username
+                  value: user11
+              - column:
+                  name: email
+                  value: user11@example.com
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: username
+                  value: user12
+              - column:
+                  name: email
+                  value: user12@example.com
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: username
+                  value: user13
+              - column:
+                  name: email
+                  value: user13@example.com
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: username
+                  value: user14
+              - column:
+                  name: email
+                  value: user14@example.com
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: username
+                  value: user15
+              - column:
+                  name: email
+                  value: user15@example.com
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: username
+                  value: user16
+              - column:
+                  name: email
+                  value: user16@example.com
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: username
+                  value: user17
+              - column:
+                  name: email
+                  value: user17@example.com
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: username
+                  value: user18
+              - column:
+                  name: email
+                  value: user18@example.com
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: username
+                  value: user19
+              - column:
+                  name: email
+                  value: user19@example.com
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: username
+                  value: user20
+              - column:
+                  name: email
+                  value: user20@example.com
