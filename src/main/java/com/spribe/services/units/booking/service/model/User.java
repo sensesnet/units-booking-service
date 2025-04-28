@@ -1,4 +1,5 @@
 package com.spribe.services.units.booking.service.model;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -6,6 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
+@JsonIgnoreProperties({"bookings"})
 @Table(name = "users")
 public class User {
 

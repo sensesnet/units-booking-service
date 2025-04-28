@@ -1,5 +1,6 @@
 package com.spribe.services.units.booking.service.service;
 
+import com.spribe.services.units.booking.service.infrastructure.cache.UnitCache;
 import com.spribe.services.units.booking.service.model.AccommodationType;
 import com.spribe.services.units.booking.service.model.Booking;
 import com.spribe.services.units.booking.service.model.BookingStatus;
@@ -8,8 +9,6 @@ import com.spribe.services.units.booking.service.model.repo.BookingRepository;
 import com.spribe.services.units.booking.service.model.repo.UnitRepository;
 import com.spribe.services.units.booking.service.model.request.UnitRequest;
 import lombok.RequiredArgsConstructor;
-import org.springframework.cache.Cache;
-import org.springframework.cache.CacheManager;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -19,7 +18,6 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -27,18 +25,17 @@ public class UnitService {
 
     private final UnitRepository unitRepository;
     private final BookingRepository bookingRepository;
-    private final CacheManager cacheManager;
+    private final UnitCache unitCache;
 
     public Unit createUnit(UnitRequest request) {
         Unit saved = unitRepository.save(Unit.builder()
                 .floor(request.getFloor())
                 .accommodationType(request.getAccommodationType())
                 .baseCost(request.getBaseCost())
-                .bookings(request.getBookings())
                 .description(request.getDescription())
                 .numberOfRooms(request.getNumberOfRooms())
                 .build());
-        updateAvailableUnitsCache();
+        unitCache.updateCache(this::calculateAvailableUnits);
         return saved;
     }
 
@@ -74,24 +71,13 @@ public class UnitService {
     }
 
     public long countAvailableUnits() {
-        Cache cache = cacheManager.getCache("availableUnits");
-        Long count = cache != null ? cache.get("count", Long.class) : null;
-
-        if (count == null) {
-            count = unitRepository.findAll().stream()
-                    .filter(unit -> isAvailable(unit, LocalDate.now(), LocalDate.now().plusDays(30)))
-                    .count();
-            if (cache != null) cache.put("count", count);
-        }
-
-        return count;
+        return unitCache.getCount(this::calculateAvailableUnits);
     }
 
-    public void updateAvailableUnitsCache() {
-        if (cacheManager.getCache("availableUnits") != null) {
-            Objects.requireNonNull(cacheManager.getCache("availableUnits"))
-                    .put("count", countAvailableUnits());
-        }
+    private long calculateAvailableUnits() {
+        return unitRepository.findAll().stream()
+                .filter(unit -> isAvailable(unit, LocalDate.now(), LocalDate.now().plusDays(30)))
+                .count();
     }
 
     private boolean isAvailable(Unit unit, LocalDate start, LocalDate end) {
@@ -99,8 +85,13 @@ public class UnitService {
                 unit.getId(),
                 List.of(BookingStatus.CREATED, BookingStatus.PAID)
         );
+
+        if (bookings.isEmpty()) {
+            return true;
+        }
+
         return bookings.stream().noneMatch(booking ->
-                !booking.getStartDate().isAfter(end) && !booking.getEndDate().isBefore(start)
+                !(booking.getEndDate().isBefore(start) || booking.getStartDate().isAfter(end))
         );
     }
 }

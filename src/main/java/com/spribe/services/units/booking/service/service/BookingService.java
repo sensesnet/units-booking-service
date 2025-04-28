@@ -1,5 +1,6 @@
 package com.spribe.services.units.booking.service.service;
 
+import com.spribe.services.units.booking.service.infrastructure.cache.UnitCache;
 import com.spribe.services.units.booking.service.model.*;
 import com.spribe.services.units.booking.service.model.repo.BookingRepository;
 import com.spribe.services.units.booking.service.model.repo.PaymentRepository;
@@ -12,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -24,6 +26,7 @@ public class BookingService {
     private final UserRepository userRepository;
     private final PaymentRepository paymentRepository;
     private final UnitService unitService;
+    private final UnitCache unitCache;
 
     @Transactional
     public Booking createBooking(BookingRequest request) {
@@ -32,17 +35,7 @@ public class BookingService {
         var user = userRepository.findById(request.getUserId())
                 .orElseThrow(() -> new BookingNotFoundException("User not found"));
 
-        boolean available = unitService.searchUnits(null,
-                        null,
-                        null,
-                        null,
-                        null,
-                        request.getStartDate(),
-                        request.getEndDate(),
-                        0,
-                        1,
-                        "id")
-                .stream().anyMatch(u -> u.getId().equals(unit.getId()));
+        boolean available = isAvailable(unit, request.getStartDate(), request.getEndDate());
 
         if (!available) {
             throw new IllegalStateException("Unit is not available for the selected dates");
@@ -67,7 +60,7 @@ public class BookingService {
         booking.setStatus(BookingStatus.CANCELLED);
         booking.setPaid(false);
         bookingRepository.save(booking);
-        unitService.updateAvailableUnitsCache();
+        unitCache.updateCache(unitService::countAvailableUnits);
     }
 
     @Transactional
@@ -84,9 +77,10 @@ public class BookingService {
         booking.setPaid(true);
         bookingRepository.save(booking);
 
-        Payment payment = new Payment();
-        payment.setBooking(booking);
-        payment.setAmount(booking.getUnit().getTotalCost());
+        Payment payment = Payment.builder()
+                .booking(booking)
+                .amount(booking.getUnit().getTotalCost())
+                .build();
 
         return paymentRepository.save(payment);
     }
@@ -103,7 +97,22 @@ public class BookingService {
         }
 
         if (!expired.isEmpty()) {
-            unitService.updateAvailableUnitsCache();
+            unitCache.updateCache(unitService::countAvailableUnits);
         }
+    }
+
+    private boolean isAvailable(Unit unit, LocalDate start, LocalDate end) {
+        List<Booking> bookings = bookingRepository.findByUnitIdAndStatusIn(
+                unit.getId(),
+                List.of(BookingStatus.CREATED, BookingStatus.PAID)
+        );
+
+        if (bookings.isEmpty()) {
+            return true;
+        }
+
+        return bookings.stream().noneMatch(booking ->
+                !(booking.getEndDate().isBefore(start) || booking.getStartDate().isAfter(end))
+        );
     }
 }

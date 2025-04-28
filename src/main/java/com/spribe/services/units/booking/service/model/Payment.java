@@ -1,12 +1,16 @@
 package com.spribe.services.units.booking.service.model;
 
 import jakarta.persistence.*;
+import lombok.Builder;
+import lombok.Getter;
 import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+@Builder(toBuilder = true)
 @Setter
+@Getter
 @Entity
 @Table(name = "payments")
 public class Payment {

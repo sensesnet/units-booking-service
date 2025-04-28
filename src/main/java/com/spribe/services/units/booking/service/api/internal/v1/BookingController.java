@@ -19,7 +19,7 @@ import static com.spribe.services.units.booking.service.api.RestApiConstants.BOO
 import static com.spribe.services.units.booking.service.api.RestApiConstants.BOOKING_PAY_SUBPATH;
 
 @RestController
-@RequestMapping(BOOKING_PATH)
+@RequestMapping(path = BOOKING_PATH)
 @RequiredArgsConstructor
 public class BookingController {
 
@@ -27,7 +27,7 @@ public class BookingController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<Booking> book(@RequestBody BookingRequest request) {
+    public ResponseEntity<Booking> create(@RequestBody BookingRequest request) {
         return ResponseEntity.ok(bookingService.createBooking(request));
     }
 
